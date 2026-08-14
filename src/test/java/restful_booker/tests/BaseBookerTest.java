@@ -6,7 +6,7 @@ import restful_booker.config.BookerConfig;
 
 public abstract class BaseBookerTest {
 
-    @BeforeSuite
+    @BeforeSuite(alwaysRun = true)
     public void configureBookerApi() {
         RestAssured.baseURI = BookerConfig.get("booker.base.url");
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();

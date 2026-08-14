@@ -32,7 +32,7 @@ public class BookingTests extends BaseBookerTest {
     private int bookingId;
     private String token;
 
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void setupClient() {
         bookingClient = new BookingClient();
         authClient = new AuthClient();
@@ -55,7 +55,7 @@ public class BookingTests extends BaseBookerTest {
 
     @Story("Create booking")
     @Description("Checks that a new booking can be successfully created")
-    @Test
+    @Test(groups = "smoke")
     public void createBookingShouldReturnCreatedBooking() {
         CreateBookingRequestDto request = BookingRequestFactory.validBooking();
         CreateBookingResponseDto response = bookingClient.createBookingAsDto(request);
@@ -104,7 +104,7 @@ public class BookingTests extends BaseBookerTest {
 
     @Story("Get booking")
     @Description("Checks that a created booking can be retrieved by its id")
-    @Test
+    @Test(groups = "smoke")
     public void createdBookingShouldBeReturnedById() {
         CreateBookingRequestDto request = BookingRequestFactory.validBooking();
         CreateBookingResponseDto createResponse = bookingClient.createBookingAsDto(request);
@@ -151,7 +151,7 @@ public class BookingTests extends BaseBookerTest {
 
     @Story("Get booking")
     @Description("Checks that requesting a non-existing booking returns 404")
-    @Test
+    @Test(groups = "regression")
     public void getNonExistingBookingShouldReturnNotFound() {
         int nonExistingBookingId = 999999999;
         Response response = bookingClient.getBooking(nonExistingBookingId);
@@ -163,7 +163,7 @@ public class BookingTests extends BaseBookerTest {
 
     @Story("Update booking")
     @Description("Checks that PUT fully updates booking data and persists the changes")
-    @Test
+    @Test(groups = "regression")
     public void updateBookingShouldPersistUpdatedData () {
         CreateBookingRequestDto request = BookingRequestFactory.validBooking();
         CreateBookingResponseDto response = bookingClient.createBookingAsDto(request);
@@ -193,7 +193,7 @@ public class BookingTests extends BaseBookerTest {
 
     @Story("Partial booking update")
     @Description("Checks that PATCH updates only the provided booking fields")
-    @Test
+    @Test(groups = "regression")
     public void patchBookingShouldUpdateOnlyProvidedFields() {
         CreateBookingRequestDto request = BookingRequestFactory.validBooking();
         CreateBookingResponseDto response = bookingClient.createBookingAsDto(request);
@@ -227,7 +227,7 @@ public class BookingTests extends BaseBookerTest {
 
     @Story("Delete booking")
     @Description("Checks that a deleted booking can no longer be retrieved")
-    @Test
+    @Test(groups = "regression")
     public void deleteBookingShouldRemoveBooking() {
         CreateBookingRequestDto request = BookingRequestFactory.validBooking();
         CreateBookingResponseDto response = bookingClient.createBookingAsDto(request);
@@ -246,7 +246,7 @@ public class BookingTests extends BaseBookerTest {
 
     @Story("Booking authorization")
     @Description("Checks that booking cannot be updated without authentication")
-    @Test
+    @Test(groups = "regression")
     public void updateBookingWithoutTokenShouldReturnForbidden() {
         CreateBookingRequestDto request = BookingRequestFactory.validBooking();
         CreateBookingResponseDto response = bookingClient.createBookingAsDto(request);
@@ -276,7 +276,7 @@ public class BookingTests extends BaseBookerTest {
 
     @Story("Booking authorization")
     @Description("Checks that booking cannot be updated with an invalid token")
-    @Test
+    @Test(groups = "regression")
     public void updateBookingWithInvalidTokenShouldReturnForbidden() {
         CreateBookingRequestDto request = BookingRequestFactory.validBooking();
         CreateBookingResponseDto response = bookingClient.createBookingAsDto(request);
@@ -307,7 +307,7 @@ public class BookingTests extends BaseBookerTest {
 
     @Story("Booking CRUD flow")
     @Description("Checks the complete booking lifecycle: create, get, update, patch and delete")
-    @Test
+    @Test(groups = "regression")
     public void fullBookingCrudFlowShouldWorkCorrectly() {
         CreateBookingRequestDto request = BookingRequestFactory.validBooking();
         CreateBookingResponseDto response = bookingClient.createBookingAsDto(request);

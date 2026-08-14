@@ -22,14 +22,15 @@ public class AuthTests extends BaseBookerTest {
 
     private AuthClient authClient;
 
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void setupClient() {
         authClient = new AuthClient();
     }
 
+
     @Story("Valid authentication")
     @Description("Checks that valid admin credentials return an authentication token")
-    @Test
+    @Test(groups = "smoke")
     public void loginWithValidCredentialsShouldReturnToken() {
         AuthRequestDto request = AuthRequestFactory.validAdminAuth();
         AuthResponseDto response = authClient.loginAsDto(request);
@@ -41,7 +42,7 @@ public class AuthTests extends BaseBookerTest {
 
     @Story("Invalid authentication")
     @Description("Checks that invalid credentials do not return an authentication token")
-    @Test(dataProvider = "invalidCredentials")
+    @Test(groups = "regression", dataProvider = "invalidCredentials")
     public void loginWithInvalidCredentialsShouldNotReturnToken(String username, String password) {
         AuthRequestDto request = new AuthRequestDto();
         request.setUsername(username);

@@ -7,10 +7,24 @@ pipeline {
         maven 'maven'
     }
 
+    parameters {
+        choice(
+            name: 'TEST_SUITE',
+            choices: ['smoke', 'regression', 'all'],
+            description: 'Select test suite to run'
+        )
+    }
+
     stages {
         stage('Run API tests') {
             steps {
-                bat 'mvn clean test'
+                script {
+                    if (params.TEST_SUITE == 'all') {
+                        bat 'mvn clean test'
+                    } else {
+                        bat "mvn clean test -Dgroups=${params.TEST_SUITE}"
+                    }
+                }
             }
         }
     }
