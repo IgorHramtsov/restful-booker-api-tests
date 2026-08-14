@@ -16,15 +16,27 @@ pipeline {
     }
 
     stages {
+        stage('Build') {
+            steps {
+                bat 'mvn clean compile'
+            }
+        }
+
         stage('Run API tests') {
             steps {
                 script {
                     if (params.TEST_SUITE == 'all') {
-                        bat 'mvn clean test'
+                        bat 'mvn test'
                     } else {
-                        bat "mvn clean test -Dgroups=${params.TEST_SUITE}"
+                        bat "mvn test -Dgroups=${params.TEST_SUITE}"
                     }
                 }
+            }
+        }
+
+        stage('Test completed') {
+            steps {
+                echo 'API tests successfully completed'
             }
         }
     }
