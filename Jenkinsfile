@@ -12,11 +12,11 @@ pipeline {
                 bat 'mvn clean test'
             }
         }
+    }
 
-        stage('Publish test results') {
-            steps {
-                junit 'target/surefire-reports/*.xml'
-            }
+    post {
+        always {
+            junit 'target/surefire-reports/*.xml'
         }
     }
 }

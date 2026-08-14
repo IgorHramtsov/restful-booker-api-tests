@@ -63,7 +63,7 @@ public class BookingTests extends BaseBookerTest {
         bookingId = response.getBookingid();
         token = getAdminToken();
 
-        Assert.assertTrue(response.getBookingid() > 0);
+        Assert.assertTrue(response.getBookingid() < 0);
         Assert.assertNotNull(response.getBooking());
 
         Assert.assertEquals(
