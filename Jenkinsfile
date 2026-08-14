@@ -1,3 +1,4 @@
+// Restful Booker API CI pipeline
 pipeline {
     agent any
 
