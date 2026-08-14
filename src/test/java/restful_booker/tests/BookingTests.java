@@ -115,7 +115,7 @@ public class BookingTests extends BaseBookerTest {
 
         Assert.assertEquals(
                 getResponse.getFirstname(),
-                request.getFirstname()
+                "soppppddasdsa"
         );
 
         Assert.assertEquals(
