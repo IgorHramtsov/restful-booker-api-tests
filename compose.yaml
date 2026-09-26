@@ -1,0 +1,4 @@
+services:
+  tests:
+    build: .
+    container_name: restful-booker-tests

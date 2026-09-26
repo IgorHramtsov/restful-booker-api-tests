@@ -4,3 +4,4 @@ allure-report/
 *.iml
 *.log
 .DS_Store
+src/test/resources/booker.properties
